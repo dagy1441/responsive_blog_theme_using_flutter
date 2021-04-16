@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/models/Blog.dart';
+import 'package:news/screens/home/component/blog_post.dart';
 
 import '../../constants.dart';
 
@@ -18,32 +19,11 @@ class HomeScreen extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Column(
-              children: [
-                AspectRatio(
-                  aspectRatio: 1.78,
-                  child: Image.asset(blogPosts[0].image),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      // topRight: Radius.circular(10),
-                      // topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text("Design".toUpperCase()),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              children: List.generate(
+                  blogPosts.length,
+                  (index) => BlogPostCard(
+                        blog: blogPosts[index],
+                      )),
             ),
           ),
           SizedBox(
