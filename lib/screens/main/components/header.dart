@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:news/controllers/menu_controller.dart';
+import 'package:news/responsive.dart';
 import 'package:news/screens/main/components/social_icon.dart';
 import 'package:news/screens/main/components/web_menu.dart';
 
 import '../../../constants.dart';
 
 class Header extends StatelessWidget {
-  const Header({
-    Key key,
-  }) : super(key: key);
+  final MenuController _controller = Get.put(MenuController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,19 @@ class Header extends StatelessWidget {
                 children: [
                   Row(
                     children: [
+                      if (!Responsive.isDesktop(context))
+                        IconButton(
+                          icon: Icon(
+                            Icons.menu,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            _controller.openOrCloseDrawer();
+                          },
+                        ),
                       SvgPicture.asset("assets/icons/logo.svg"),
                       Spacer(),
-                      WebMenu(),
+                      if (Responsive.isDesktop(context)) WebMenu(),
                       Spacer(),
                       // social Icon
                       SocialIcon(),
@@ -67,9 +78,7 @@ class Header extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
-                            width: kDefaultPadding / 2,
-                          ),
+                          SizedBox(width: kDefaultPadding / 2),
                           Icon(
                             Icons.arrow_forward,
                             color: Colors.white,
@@ -79,9 +88,8 @@ class Header extends StatelessWidget {
                       onPressed: () {},
                     ),
                   ),
-                  SizedBox(
-                    height: kDefaultPadding,
-                  ),
+                  if (Responsive.isDesktop(context))
+                    SizedBox(height: kDefaultPadding),
                 ],
               ),
             ),

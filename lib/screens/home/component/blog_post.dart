@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news/constants.dart';
 import 'package:news/models/Blog.dart';
 
+import '../../../responsive.dart';
+
 class BlogPostCard extends StatelessWidget {
   final Blog blog;
   const BlogPostCard({
@@ -25,13 +27,12 @@ class BlogPostCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                // topRight: Radius.circular(10),
-                // topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),
               ),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -56,19 +57,21 @@ class BlogPostCard extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: kDefaultPadding),
                   child: Text(
                     blog.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 32,
+                      fontSize: Responsive.isDesktop(context) ? 32 : 24,
                       fontFamily: 'Raleway',
                       color: kDarkBlackColor,
                       height: 1.3,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
                 Text(
                   blog.description,
                   maxLines: 4,
-                  style: TextStyle(height: 1.4),
+                  style: TextStyle(height: 1.5),
                 ),
                 SizedBox(
                   height: kDefaultPadding,
@@ -81,7 +84,7 @@ class BlogPostCard extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: kDefaultPadding / 4),
                         decoration: BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(color: kPrimaryColor),
+                            bottom: BorderSide(color: kPrimaryColor, width: 3),
                           ),
                         ),
                         child: Text(
